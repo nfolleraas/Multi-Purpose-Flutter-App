@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_purpose_flutter_app/models/counter.dart';
 
 class CounterPage extends StatefulWidget {
   const CounterPage({super.key, required this.title});
@@ -10,12 +11,12 @@ class CounterPage extends StatefulWidget {
 }
 
 class _CounterPageState extends State<CounterPage> {
-  int _counter = 0;
+  final counter = Counter();
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    counter.addListener(_onCounterChanged);
   }
 
   @override
@@ -29,19 +30,31 @@ class _CounterPageState extends State<CounterPage> {
         child: Column(
           mainAxisAlignment: .center,
           children: [
-            const Text('You have pushed the button this many times:'),
+            const Text('Current counter:'),
             Text(
-              '$_counter',
+              '${counter.amount}',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: counter.increment,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  void _onCounterChanged() {
+    setState(() {});
+  }
+
+  @override
+  /// Dispose all listeners to avoid memory leaks
+  void dispose() {
+    counter.removeListener(_onCounterChanged);
+    counter.dispose();
+    super.dispose();
   }
 }

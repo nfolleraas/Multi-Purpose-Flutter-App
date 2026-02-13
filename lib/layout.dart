@@ -13,6 +13,7 @@ class _LayoutState extends State<Layout> {
 
   @override
   Widget build(BuildContext context) {
+    // Logic to choose a page to load
     Widget page;
     switch (selectedIndex) {
       case 0:
@@ -28,7 +29,8 @@ class _LayoutState extends State<Layout> {
             children: [
               SafeArea(
                 child: NavigationRail(
-                  extended: constraints.maxWidth >= 600,
+                  extended: constraints.maxWidth >= 600, // Show extended mode (labels visible) when the screen width >= 600px
+                  // Define visuals for destinations
                   destinations: [
                     NavigationRailDestination(
                       icon: Icon(Icons.numbers),
@@ -37,12 +39,14 @@ class _LayoutState extends State<Layout> {
                   ],
                   selectedIndex: selectedIndex,
                   onDestinationSelected: (value) {
+                    // Notify the state that the value of selectedIndex has been changed
                     setState(() {
-                      selectedIndex = value;
+                      selectedIndex = value; // Value is the index of the selected page
                     });
                   },
                 ),
               ),
+              // The allocated space for the loaded page
               Expanded(
                 child: Container(
                   color: Theme.of(context).colorScheme.primaryContainer,
