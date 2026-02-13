@@ -30,18 +30,41 @@ class _CounterPageState extends State<CounterPage> {
         child: Column(
           mainAxisAlignment: .center,
           children: [
-            const Text('Current counter:'),
+            const Text('The counter is currently at:'),
             Text(
               '${counter.amount}',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith( // Use the theme with custom style properties
+                color: counter.amount > 0 ? Colors.green : Colors.red
+              ),
+            ),
+            SizedBox(height: 20),
+            Column(
+              mainAxisAlignment: .center,
+              spacing: 10,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () {
+                    counter.increment();
+                  },
+                  icon: Icon(Icons.add),
+                  label: Text('Increment'),
+                ),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    counter.decrease();
+                  },
+                  icon: Icon(Icons.remove),
+                  label: Text('Decrease'),
+                ),
+              ],
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: counter.increment,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        onPressed: counter.reset,
+        tooltip: 'Reset',
+        child: const Icon(Icons.clear),
       ),
     );
   }

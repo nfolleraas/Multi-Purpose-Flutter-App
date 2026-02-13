@@ -15,7 +15,7 @@ class Counter extends ChangeNotifier {
     notifyListeners();
   }
 
-  void resetCounter() {
+  void reset() {
     _amount = 0;
     notifyListeners();
   }
