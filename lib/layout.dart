@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multi_purpose_flutter_app/pages/color_mixer_page.dart';
 import 'package:multi_purpose_flutter_app/pages/counter_page.dart';
 
 class Layout extends StatefulWidget {
@@ -18,6 +19,8 @@ class _LayoutState extends State<Layout> {
     switch (selectedIndex) {
       case 0:
         page = CounterPage(title: 'Counter');
+      case 1:
+        page = ColorMixerPage(title: 'Color Mixer');
       default:
         throw UnimplementedError('No widget for $selectedIndex');
     }
@@ -36,6 +39,10 @@ class _LayoutState extends State<Layout> {
                       icon: Icon(Icons.numbers),
                       label: Text('Counter Page'),
                     ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.color_lens), 
+                      label: Text('Color Mixer Page')
+                      ),
                   ],
                   selectedIndex: selectedIndex,
                   onDestinationSelected: (value) {
